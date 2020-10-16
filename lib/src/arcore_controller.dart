@@ -5,6 +5,7 @@ import 'package:arcore_flutter_plugin/src/arcore_rotating_node.dart';
 import 'package:arcore_flutter_plugin/src/utils/vector_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
+import 'package:vector_math/vector_math.dart';
 import 'arcore_hit_test_result.dart';
 
 import 'arcore_node.dart';
@@ -212,8 +213,9 @@ class ArCoreController {
     }
   }
 
-  void camPos() {
-    _channel?.invokeMethod('camWorldPosition');
+  Vector3 camPos() {
+    Vector3 camPos = _channel?.invokeMethod('camWorldPosition') as Vector3;
+    return camPos;
   }
 
 }
