@@ -211,4 +211,9 @@ class ArCoreController {
       print(ex);
     }
   }
+
+  void camPos() {
+    _channel?.invokeMethod('camWorldPosition');
+  }
+
 }
