@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:arcore_flutter_plugin/src/arcore_augmented_image.dart';
@@ -213,15 +214,30 @@ class ArCoreController {
     }
   }
 
-  String response = "";
+   List <double> response;
+  Vector3 vec;
+
+  Future<void> _getList() async {
+    response = await _channel.invokeMethod('camWorldPosition');
+    print(response);
+
+  }
+
 
   Future<void> camPos() async{
 
     try {
-      final String result = await  _channel.invokeMethod('camWorldPosition');
-      response = result;
+      //final Map<String, double> result = await  _channel.invokeMethod('camWorldPosition');
+      final List<dynamic> result = await  _channel.invokeMethod('camWorldPosition');
+      Timer(Duration(seconds: 3), () {
+        result.forEach((element) {
+          print('LISTELEMENT ${element}');
+        });
+      });
+      response = result.cast<double>();
+      vec = Vector3(response[0], response[1], response[2]);
     } on PlatformException catch (e) {
-      response = "Failed to Invoke: '${e.message}'.";
+      //response = "Failed to Invoke: '${e.message}'.";
     }
   }
 

@@ -21,6 +21,7 @@ import com.google.ar.core.exceptions.CameraNotAvailableException
 import com.google.ar.core.exceptions.UnavailableException
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 import com.google.ar.sceneform.*
+import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.AugmentedFaceNode
@@ -198,7 +199,18 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
             }
             "camWorldPosition" -> {
                 Log.i(TAG, "camPos")
-                camWorldPosition()
+                val vec = arSceneView?.scene?.camera!!.worldPosition
+                val map : HashMap<String, Double> = hashMapOf(
+                        "x" to vec.x.toDouble(),
+                        "y" to vec.y.toDouble(),
+                        "z" to vec.z.toDouble()
+                )
+
+                val list :List<Double> = listOf(vec.x.toDouble(),vec.y.toDouble(),vec.z.toDouble())
+
+
+
+                result.success(list)//camWorldPosition())
             }
             else -> {
             }
@@ -539,7 +551,8 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
 
 
     fun camWorldPosition() : Int{
-      return arSceneView?.scene?.camera!!.worldPosition.x.toInt()
+        Log.i(TAG,"")
+        return 2//arSceneView?.scene?.camera!!.worldPosition.x.toInt()
 
     }
 }
