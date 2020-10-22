@@ -213,9 +213,16 @@ class ArCoreController {
     }
   }
 
-  Vector3 camPos() {
-    Vector3 camPos = _channel?.invokeMethod('camWorldPosition') as Vector3;
-    return camPos;
+  String response = "";
+
+  Future<void> camPos() async{
+
+    try {
+      final String result = await  _channel.invokeMethod('camWorldPosition');
+      response = result;
+    } on PlatformException catch (e) {
+      response = "Failed to Invoke: '${e.message}'.";
+    }
   }
 
 }

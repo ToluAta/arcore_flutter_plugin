@@ -9,9 +9,12 @@ class Cam extends StatefulWidget {
 }
 
 class _CamState extends State<Cam> {
+
+  static const platform = const MethodChannel('samples.flutter.dev/cam');
+
   ArCoreController arCoreController;
 
-  @override
+  /*@override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -23,14 +26,53 @@ class _CamState extends State<Cam> {
         ),
       ),
     );
+  }*/
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              child: Text('Get Battery Level'),
+              onPressed: _getBatteryLevel,
+            ),
+            Text(_batteryLevel),
+          ],
+        ),
+      ),
+    );
   }
 
   void _onArCoreViewCreated(ArCoreController controller) {
     arCoreController = controller;
 
-    print(arCoreController.camPos());
+    controller.camPos();
+    print('Response ${arCoreController.response}');
 
   }
+
+
+  // Get battery level.
+  String _batteryLevel = 'Unknown battery level.';
+
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('cameWorldPos');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
+  }
+
 
   @override
   void dispose() {

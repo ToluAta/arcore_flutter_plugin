@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -15,17 +14,17 @@ import com.difrancescogianmarco.arcore_flutter_plugin.flutter_models.FlutterArCo
 import com.difrancescogianmarco.arcore_flutter_plugin.flutter_models.FlutterArCoreNode
 import com.difrancescogianmarco.arcore_flutter_plugin.flutter_models.FlutterArCorePose
 import com.difrancescogianmarco.arcore_flutter_plugin.models.RotatingNode
+import com.difrancescogianmarco.arcore_flutter_plugin.plugins.GeneratedPluginRegistrant
 import com.difrancescogianmarco.arcore_flutter_plugin.utils.ArCoreUtils
 import com.google.ar.core.*
 import com.google.ar.core.exceptions.CameraNotAvailableException
 import com.google.ar.core.exceptions.UnavailableException
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 import com.google.ar.sceneform.*
-import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.AugmentedFaceNode
-import io.flutter.app.FlutterApplication
+import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -43,6 +42,8 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
     private val RC_PERMISSIONS = 0x123
     private var sceneUpdateListener: Scene.OnUpdateListener
     private var faceSceneUpdateListener: Scene.OnUpdateListener
+    private val engine: FlutterEngine = FlutterEngine(context)
+    private val CHANNEL = "samples.flutter.dev/cam"
 
     //AUGMENTEDFACE
     private var faceRegionsRenderable: ModelRenderable? = null
@@ -424,6 +425,7 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
         }
     }
 
+
     fun onResume() {
         Log.i(TAG, "onResume()")
 
@@ -527,7 +529,17 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
         node?.localPosition = parseVector3(call.arguments as HashMap<String, Any>)
         result.success(null)
     }*/
-    fun camWorldPosition() : Vector3{
-        return arSceneView?.scene?.camera!!.worldPosition
+
+
+    
+
+
+
+
+
+
+    fun camWorldPosition() : Int{
+      return arSceneView?.scene?.camera!!.worldPosition.x.toInt()
+
     }
 }

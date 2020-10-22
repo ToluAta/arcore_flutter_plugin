@@ -1,4 +1,4 @@
-package com.difrancescogianmarco.example
+package com.difrancescogianmarco.arcore_flutter_plugin
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -7,12 +7,12 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build
 import androidx.annotation.NonNull;
+import com.difrancescogianmarco.arcore_flutter_plugin.plugins.GeneratedPluginRegistrant
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugins.GeneratedPluginRegistrant
 
-class MainActivity: FlutterActivity() {
+class CamTest: FlutterActivity() {
 
     private val CHANNEL = "samples.flutter.dev/battery"
 
@@ -49,7 +49,7 @@ class MainActivity: FlutterActivity() {
 
         return batteryLevel
     }
-    
+
 
 
 }
