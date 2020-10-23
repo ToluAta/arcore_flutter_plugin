@@ -211,4 +211,17 @@ class ArCoreController {
       print(ex);
     }
   }
+
+  Future<void> toggleArCoreNode({@required String nodeName}) {
+    assert(nodeName != null);
+    try {
+      return _channel.invokeMethod('toggleArCoreNode', {
+        'nodeName': nodeName,
+      });
+    } catch (ex) {
+      print(ex);
+    }
+  }
+
+
 }

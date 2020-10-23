@@ -22,6 +22,7 @@ class FlutterArCoreNode(map: HashMap<String, *>) {
             ?: Quaternion()
     val degreesPerSecond: Float? = getDegreesPerSecond((map["degreesPerSecond"] as? Double))
     var parentNodeName: String? = map["parentNodeName"] as? String
+    val enabled: Boolean? = map["isEnabled"] as? Boolean
 
     val children: ArrayList<FlutterArCoreNode> = getChildrenFromMap(map["children"] as ArrayList<HashMap<String, *>>)
     
@@ -41,7 +42,12 @@ class FlutterArCoreNode(map: HashMap<String, *>) {
         node.localPosition = position
         node.localScale = scale
         node.localRotation = rotation
-
+        if(enabled == null) {
+            node.isEnabled = true
+        }
+        else {
+            node.isEnabled = enabled
+        }
         return node
     }
     
@@ -81,6 +87,7 @@ class FlutterArCoreNode(map: HashMap<String, *>) {
                 "scale: $scale\n" +
                 "rotation: $rotation\n" +
                 "parentNodeName: $parentNodeName"
+                "enabled: $enabled"
     }
 
 }

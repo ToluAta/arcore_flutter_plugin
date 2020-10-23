@@ -166,6 +166,11 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
                 val flutterNode = FlutterArCoreNode(map)
                 addNodeWithAnchor(flutterNode, result)
             }
+            "toggleArCoreNode" -> {
+                Log.i(TAG, "toggleArCoreNode")
+                val map = call.arguments as HashMap<String, Any>
+                toggleNode(map["nodeName"] as String, result)
+            }
             "removeARCoreNode" -> {
                 Log.i(TAG, " removeARCoreNode")
                 val map = call.arguments as HashMap<String, Any>
@@ -382,6 +387,17 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
 
         result.success(null)
     }
+
+    fun toggleNode(name: String, result: MethodChannel.Result) {
+        val node = arSceneView?.scene?.findByName(name)
+        if (node != null) {
+            node.isEnabled = !node.isEnabled
+            Log.i(TAG, "toggled ${node.name}")
+        }
+
+        result.success(null)
+    }
+
 
     fun updateRotation(call: MethodCall, result: MethodChannel.Result) {
         val name = call.argument<String>("name")
