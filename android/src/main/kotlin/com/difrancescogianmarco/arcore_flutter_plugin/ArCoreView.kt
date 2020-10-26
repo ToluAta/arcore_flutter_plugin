@@ -199,18 +199,11 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
             }
             "camWorldPosition" -> {
                 Log.i(TAG, "camPos")
-                val vec = arSceneView?.scene?.camera!!.worldPosition
-                val map : HashMap<String, Double> = hashMapOf(
-                        "x" to vec.x.toDouble(),
-                        "y" to vec.y.toDouble(),
-                        "z" to vec.z.toDouble()
-                )
 
-                val list :List<Double> = listOf(vec.x.toDouble(),vec.y.toDouble(),vec.z.toDouble())
+                val list :List<Double> = camWorldPosition()
 
 
-
-                result.success(list)//camWorldPosition())
+                result.success(list)
             }
             else -> {
             }
@@ -550,9 +543,17 @@ class ArCoreView(val activity: Activity, context: Context, messenger: BinaryMess
 
 
 
-    fun camWorldPosition() : Int{
-        Log.i(TAG,"")
-        return 2//arSceneView?.scene?.camera!!.worldPosition.x.toInt()
+    fun camWorldPosition() : List<Double> {
+        val vec = arSceneView?.scene?.camera!!.worldPosition
+        val map : HashMap<String, Double> = hashMapOf(
+                "x" to vec.x.toDouble(),
+                "y" to vec.y.toDouble(),
+                "z" to vec.z.toDouble()
+        )
+
+        val list :List<Double> = listOf(vec.x.toDouble(),vec.y.toDouble(),vec.z.toDouble())
+
+        return list
 
     }
 }

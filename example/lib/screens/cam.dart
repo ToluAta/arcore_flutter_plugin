@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vector_math/vector_math.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 class Cam extends StatefulWidget {
@@ -53,15 +54,9 @@ class _CamState extends State<Cam> {
   void _onArCoreViewCreated(ArCoreController controller) {
     arCoreController = controller;
 
-    controller.camPos();
+    Future<Vector3> vec = controller.camPos();
 
-    Timer(Duration(seconds: 3), () {
-      arCoreController.response.forEach((element) {
-
-        print('Response ${element} \t ${arCoreController.response.length}, ${arCoreController.vec}');
-      });
-
-    });
+    vec.then((value) => print("HIER:" + value.toString()));
 
   }
 

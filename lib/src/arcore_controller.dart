@@ -214,20 +214,12 @@ class ArCoreController {
     }
   }
 
-   List <double> response;
-  Vector3 vec;
+  Future<Vector3> camPos() async{
 
-  Future<void> _getList() async {
-    response = await _channel.invokeMethod('camWorldPosition');
-    print(response);
-
-  }
-
-
-  Future<void> camPos() async{
+    List <double> response;
+    Vector3 vec;
 
     try {
-      //final Map<String, double> result = await  _channel.invokeMethod('camWorldPosition');
       final List<dynamic> result = await  _channel.invokeMethod('camWorldPosition');
       Timer(Duration(seconds: 3), () {
         result.forEach((element) {
@@ -239,6 +231,10 @@ class ArCoreController {
     } on PlatformException catch (e) {
       //response = "Failed to Invoke: '${e.message}'.";
     }
+
+    print("LANGE: " + vec.length.toString() + " VECTOR: " + vec[0].toString() + " / " + vec[1].toString() + " / " + vec[2].toString() );
+    return vec;
+
   }
 
 }
