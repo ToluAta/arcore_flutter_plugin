@@ -6,7 +6,7 @@ import 'package:arcore_flutter_plugin/src/arcore_rotating_node.dart';
 import 'package:arcore_flutter_plugin/src/utils/vector_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
-import 'package:vector_math/vector_math.dart';
+import 'package:vector_math/vector_math_64.dart';
 import 'arcore_hit_test_result.dart';
 
 import 'arcore_node.dart';
@@ -236,5 +236,18 @@ class ArCoreController {
     return vec;
 
   }
+
+
+  Future<void> toggleArCoreNode({@required String nodeName}) {
+    assert(nodeName != null);
+    try {
+      return _channel.invokeMethod('toggleArCoreNode', {
+        'nodeName': nodeName,
+      });
+    } catch (ex) {
+      print(ex);
+    }
+  }
+
 
 }
