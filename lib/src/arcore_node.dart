@@ -18,7 +18,7 @@ class ArCoreNode {
         position = ValueNotifier(position),
         scale = ValueNotifier(scale),
         rotation = ValueNotifier(rotation),
-        isEnanbled = isEnabled;
+        isEnabled = isEnabled;
 
   final List<ArCoreNode> children;
 
@@ -32,7 +32,7 @@ class ArCoreNode {
 
   final String name;
 
-  final bool isEnanbled;
+  bool isEnabled;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'dartType': runtimeType.toString(),
@@ -40,7 +40,7 @@ class ArCoreNode {
         'position': convertVector3ToMap(position.value),
         'scale': convertVector3ToMap(scale.value),
         'rotation': convertVector4ToMap(rotation.value),
-        'isEnabled': isEnanbled,
+        'isEnabled': isEnabled,
         'name': name,
         'children':
             this.children.map((arCoreNode) => arCoreNode.toMap()).toList(),
